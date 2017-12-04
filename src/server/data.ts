@@ -1,4 +1,4 @@
-import { LeaderBoardResponse } from "./api-types";
+import { LeaderBoardResponse } from "../shared/api-types";
 import * as fs from "fs";
 import fetch from "node-fetch";
 
