@@ -6,7 +6,7 @@ export interface Member {
   readonly id: string;
   readonly name: string;
   readonly stars: number;
-  readonly locale_score: number;
+  readonly local_score: number;
   readonly global_score: number;
 
   readonly completion_day_level: CompletionDayLevel;
