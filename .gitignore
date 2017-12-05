@@ -1,5 +1,6 @@
 node_modules
 leaderboard.json
 session_cookie
-src/client/dist
+src/client/dist/
+src/server/dist/
 !src/client/dist/index.html
