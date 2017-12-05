@@ -6,7 +6,11 @@ import * as path from "path";
 
 const app = new Koa();
 
-const clientRoot = path.resolve("../client/dist");
+const rootFromEnv = process.env["root_dir"];
+
+const clientRoot = rootFromEnv
+  ? path.resolve(rootFromEnv)
+  : path.resolve("../client/dist");
 app.use(KoaStatic(clientRoot, { extensions: [".js"] }));
 
 app.use(async (ctx, next) => {

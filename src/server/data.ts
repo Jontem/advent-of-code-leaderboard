@@ -27,7 +27,9 @@ function getCacheData(): LeaderBoardResponse {
 
 async function getFromServer(): Promise<LeaderBoardResponse> {
   console.log("From server");
-  const session = fs.readFileSync("session_cookie", "utf8").replace("\n", "");
+  const session =
+    process.env["session_cookie"] ||
+    fs.readFileSync("session_cookie", "utf8").replace("\n", "");
   const data: LeaderBoardResponse = await fetch(
     "http://adventofcode.com/2017/leaderboard/private/view/127839.json",
     {
