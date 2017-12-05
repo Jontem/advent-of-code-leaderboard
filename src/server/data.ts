@@ -5,7 +5,17 @@ import fetch from "node-fetch";
 const fileName = "leaderboard.json";
 
 export async function getLeaderBoard(): Promise<LeaderBoardResponse> {
-  if (fs.existsSync(fileName)) {
+  const stat = fs.statSync(fileName);
+  const minutes = 2;
+  var modifiedDate = new Date(stat.mtime.getTime() + minutes * 60000);
+
+  const currentTime = new Date(Date.now());
+  console.log(modifiedDate.toLocaleString());
+  console.log(currentTime.toLocaleString());
+
+  const forceReload = currentTime.getTime() > modifiedDate.getTime();
+
+  if (!forceReload && fs.existsSync(fileName)) {
     return getCacheData();
   }
 
