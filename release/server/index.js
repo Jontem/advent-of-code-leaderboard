@@ -13,7 +13,10 @@ const Koa = require("koa");
 const KoaStatic = require("koa-static");
 const path = require("path");
 const app = new Koa();
-const clientRoot = path.resolve("../client/dist");
+const rootFromEnv = process.env["root_dir"];
+const clientRoot = rootFromEnv
+    ? path.resolve(rootFromEnv)
+    : path.resolve("../client/dist");
 app.use(KoaStatic(clientRoot, { extensions: [".js"] }));
 app.use((ctx, next) => __awaiter(this, void 0, void 0, function* () {
     if (ctx.request.path === "/api/leaderboard") {
@@ -24,3 +27,4 @@ app.use((ctx, next) => __awaiter(this, void 0, void 0, function* () {
     }
 }));
 app.listen(3000);
+console.log("listening on port 3000");

@@ -5,15 +5,7 @@ import fetch from "node-fetch";
 const fileName = "leaderboard.json";
 
 export async function getLeaderBoard(): Promise<LeaderBoardResponse> {
-  const stat = fs.statSync(fileName);
-  const minutes = 2;
-  var modifiedDate = new Date(stat.mtime.getTime() + minutes * 60000);
-
-  const currentTime = new Date(Date.now());
-
-  const forceReload = currentTime.getTime() > modifiedDate.getTime();
-
-  if (!forceReload && fs.existsSync(fileName)) {
+  if (fs.existsSync(fileName) && !shouldForceReload()) {
     return getCacheData();
   }
 
@@ -50,4 +42,15 @@ async function getFromServer(): Promise<LeaderBoardResponse> {
 
   await fs.writeFileSync("leaderboard.json", JSON.stringify(data));
   return data;
+}
+
+function shouldForceReload() {
+  const stat = fs.statSync(fileName);
+  const minutes = 2;
+  var modifiedDate = new Date(stat.mtime.getTime() + minutes * 60000);
+
+  const currentTime = new Date(Date.now());
+
+  const forceReload = currentTime.getTime() > modifiedDate.getTime();
+  return forceReload;
 }

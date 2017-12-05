@@ -13,4 +13,5 @@ shell.cd("../../");
 shell.mkdir("-p", "release/www");
 
 shell.cp("-R", "src/server/dist/*", "release/");
+shell.cp("-R", "src/server/package.json", "release/");
 shell.cp("-R", "src/client/dist/*", "release/www");
