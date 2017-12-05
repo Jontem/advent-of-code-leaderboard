@@ -85,11 +85,11 @@ function createRank(leaderboardInfo: Member) {
     if (date1) {
       const ul = document.createElement("ul");
       const li1 = document.createElement("li");
-      li1.innerText = `Part1: ${date1.toLocaleTimeString()}`;
+      li1.innerText = `Part1: ${date1.toLocaleDateString()} ${date1.toLocaleTimeString()}`;
       ul.appendChild(li1);
       if (date2) {
         const li2 = document.createElement("li");
-        li2.innerText += `Part2: ${date2.toLocaleTimeString()}`;
+        li2.innerText += `Part2: ${date1.toLocaleDateString()} ${date2.toLocaleTimeString()}`;
         ul.appendChild(li2);
       }
 
