@@ -6,11 +6,11 @@ import * as path from "path";
 
 const app = new Koa();
 
-const clientRoot = path.resolve("../client");
-app.use(KoaStatic(clientRoot));
+const clientRoot = path.resolve("../client/dist");
+app.use(KoaStatic(clientRoot, { extensions: [".js"] }));
 
 app.use(async (ctx, next) => {
-  if ((ctx.request.path = "/api/leaderboard")) {
+  if (ctx.request.path === "/api/leaderboard") {
     ctx.body = await getLeaderBoard();
   } else {
     await next();

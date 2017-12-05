@@ -1,5 +1,5 @@
 import * as Types from "./types";
-export const memberData: { [key: string]: Types.MemberInfo } = {
+export const userInfo: { [key: string]: Types.UserInfo } = {
   "127839": {
     name: "Jonathan",
     image: "http://divid.se/wp-content/uploads/2017/11/Jonathan_Mourtada.jpg"
