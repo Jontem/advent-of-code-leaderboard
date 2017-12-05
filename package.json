@@ -1,4 +1,10 @@
 {
   "private": true,
-  "workspaces": ["src/client", "src/server"]
+  "workspaces": [
+    "src/client",
+    "src/server"
+  ],
+  "devDependencies": {
+    "shelljs": "^0.7.8"
+  }
 }
