@@ -10,8 +10,6 @@ export async function getLeaderBoard(): Promise<LeaderBoardResponse> {
   var modifiedDate = new Date(stat.mtime.getTime() + minutes * 60000);
 
   const currentTime = new Date(Date.now());
-  console.log(modifiedDate.toLocaleString());
-  console.log(currentTime.toLocaleString());
 
   const forceReload = currentTime.getTime() > modifiedDate.getTime();
 
