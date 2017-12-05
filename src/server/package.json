@@ -2,7 +2,11 @@
   "name": "advent-of-code-leaderboard-server",
   "version": "1.0.0",
   "dependencies": {
+    "@types/koa": "^2.0.42",
+    "@types/koa-static": "^3.0.2",
     "@types/node-fetch": "^1.6.7",
+    "koa": "^2.4.1",
+    "koa-static": "^4.0.2",
     "node-fetch": "^1.7.3",
     "typescript": "^2.6.2"
   }
