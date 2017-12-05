@@ -22,6 +22,7 @@ function addParticipant(info, leaderboardInfo) {
     participantContainer.className = "participant";
     participantContainer.appendChild(createImageElement(info.image));
     participantContainer.appendChild(createParticipantTitle(info.name, leaderboardInfo.stars));
+    participantContainer.appendChild(createParticipantMeta(leaderboardInfo));
     if (participantsContainer) {
         participantsContainer.appendChild(participantContainer);
     }
@@ -39,4 +40,15 @@ function createParticipantTitle(name, stars) {
     h2.innerText = name + " ";
     h2.appendChild(span);
     return h2;
+}
+function createParticipantMeta(member) {
+    const ul = document.createElement("ul");
+    ul.appendChild(createParticipantMetaRow("Global score", member.global_score.toString()));
+    ul.appendChild(createParticipantMetaRow("Divid score", member.local_score.toString()));
+    return ul;
+}
+function createParticipantMetaRow(name, value) {
+    const li = document.createElement("li");
+    li.innerText = `${name}: ${value}`;
+    return li;
 }

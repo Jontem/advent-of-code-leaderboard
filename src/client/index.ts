@@ -23,6 +23,7 @@ function addParticipant(info: UserInfo, leaderboardInfo: Member) {
   participantContainer.appendChild(
     createParticipantTitle(info.name, leaderboardInfo.stars)
   );
+  participantContainer.appendChild(createParticipantMeta(leaderboardInfo));
 
   if (participantsContainer) {
     participantsContainer.appendChild(participantContainer);
@@ -46,4 +47,22 @@ function createParticipantTitle(name: string, stars: number) {
   h2.appendChild(span);
 
   return h2;
+}
+
+function createParticipantMeta(member: Member) {
+  const ul = document.createElement("ul");
+  ul.appendChild(
+    createParticipantMetaRow("Global score", member.global_score.toString())
+  );
+  ul.appendChild(
+    createParticipantMetaRow("Divid score", member.local_score.toString())
+  );
+
+  return ul;
+}
+
+function createParticipantMetaRow(name: string, value: string) {
+  const li = document.createElement("li");
+  li.innerText = `${name}: ${value}`;
+  return li;
 }
