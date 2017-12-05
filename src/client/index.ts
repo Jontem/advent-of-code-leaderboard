@@ -24,6 +24,7 @@ function addParticipant(info: UserInfo, leaderboardInfo: Member) {
     createParticipantTitle(info.name, leaderboardInfo.stars)
   );
   participantContainer.appendChild(createParticipantMeta(leaderboardInfo));
+  participantContainer.appendChild(createRank(leaderboardInfo));
 
   if (participantsContainer) {
     participantsContainer.appendChild(participantContainer);
@@ -65,4 +66,36 @@ function createParticipantMetaRow(name: string, value: string) {
   const li = document.createElement("li");
   li.innerText = `${name}: ${value}`;
   return li;
+}
+
+function createRank(leaderboardInfo: Member) {
+  const container = document.createElement("div");
+  const h3 = document.createElement("h3");
+  h3.innerText = "Rank";
+  container.appendChild(h3);
+
+  Object.keys(leaderboardInfo.completion_day_level).forEach(dayKey => {
+    const day = leaderboardInfo.completion_day_level[dayKey];
+    const h4 = document.createElement("h4");
+    h4.innerText = `Day ${dayKey}`;
+    container.appendChild(h4);
+    const date1 = day["1"] && new Date(day["1"].get_star_ts);
+    const date2 = day["2"] && new Date(day["2"].get_star_ts);
+
+    if (date1) {
+      const ul = document.createElement("ul");
+      const li1 = document.createElement("li");
+      li1.innerText = `Part1: ${date1.toLocaleTimeString()}`;
+      ul.appendChild(li1);
+      if (date2) {
+        const li2 = document.createElement("li");
+        li2.innerText += `Part2: ${date2.toLocaleTimeString()}`;
+        ul.appendChild(li2);
+      }
+
+      container.appendChild(ul);
+    }
+  });
+
+  return container;
 }
