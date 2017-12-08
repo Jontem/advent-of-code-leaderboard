@@ -23,6 +23,7 @@ function addParticipant(info: UserInfo, leaderboardInfo: Member) {
   participantContainer.appendChild(
     createParticipantTitle(info.name, leaderboardInfo.stars)
   );
+  participantContainer.appendChild(createParticipantRepoInfo(info.github));
   participantContainer.appendChild(createParticipantMeta(leaderboardInfo));
   participantContainer.appendChild(createRank(leaderboardInfo));
 
@@ -36,6 +37,15 @@ function createImageElement(imgSrc: string) {
   img.src = imgSrc;
 
   return img;
+}
+
+function createParticipantRepoInfo(repo: string) {
+  const a = document.createElement("a");
+  
+  a.href = repo;
+  a.innerText = "View code";
+  
+  return a;
 }
 
 function createParticipantTitle(name: string, stars: number) {
