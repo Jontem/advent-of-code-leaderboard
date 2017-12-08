@@ -23,6 +23,7 @@ function addParticipant(info: UserInfo, leaderboardInfo: Member) {
   participantContainer.appendChild(
     createParticipantTitle(info.name, leaderboardInfo.stars)
   );
+  participantContainer.appendChild(createParticipantRepoInfo(info.github));
   participantContainer.appendChild(createParticipantMeta(leaderboardInfo));
   participantContainer.appendChild(createRank(leaderboardInfo));
 
@@ -36,6 +37,15 @@ function createImageElement(imgSrc: string) {
   img.src = imgSrc;
 
   return img;
+}
+
+function createParticipantRepoInfo(repo: string) {
+  const a = document.createElement("a");
+  
+  a.href = repo;
+  a.innerText = "View code";
+  
+  return a;
 }
 
 function createParticipantTitle(name: string, stars: number) {
@@ -79,17 +89,18 @@ function createRank(leaderboardInfo: Member) {
     const h4 = document.createElement("h4");
     h4.innerText = `Day ${dayKey}`;
     container.appendChild(h4);
-    const date1 = day["1"] && new Date(day["1"].get_star_ts);
-    const date2 = day["2"] && new Date(day["2"].get_star_ts);
+    const releaseDate = new Date(2017, 11, parseInt(dayKey), 6, 0, 0).getTime();
+    const date1 = day["1"] && new Date(new Date(day["1"].get_star_ts).getTime() - releaseDate);
+    const date2 = day["2"] && new Date(new Date(day["2"].get_star_ts).getTime() - releaseDate);
 
     if (date1) {
       const ul = document.createElement("ul");
       const li1 = document.createElement("li");
-      li1.innerText = `Part1: ${date1.toLocaleDateString()} ${date1.toLocaleTimeString()}`;
+      li1.innerText = "Part1: " + presentDate(date1); 
       ul.appendChild(li1);
       if (date2) {
         const li2 = document.createElement("li");
-        li2.innerText += `Part2: ${date1.toLocaleDateString()} ${date2.toLocaleTimeString()}`;
+        li2.innerText += "Part2: " + presentDate(date2);
         ul.appendChild(li2);
       }
 
@@ -98,4 +109,23 @@ function createRank(leaderboardInfo: Member) {
   });
 
   return container;
+}
+
+function presentDate(date: Date): string {
+
+  const countDays = date.getTime() / 864e5;
+  const restDays = date.getTime() % 846e5;
+  const days = Math.floor(countDays);
+
+  const countHours = restDays / 36e5;
+  const restHours = restDays % 36e5;
+  const hours = Math.floor(countHours);
+
+  const countMinutes = restHours / 6e4;
+  const minutes = Math.floor(countMinutes);
+
+  return days > 0
+    ? (days + " day") + (days > 1 ? "s" : "") + (hours > 0 ? " " + hours + " hr" : "")
+    : (hours > 9 ? "" : "0") + hours + ":" + (minutes > 9 ? "" : "0") + minutes;
+
 }
